@@ -1,0 +1,84 @@
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Cotizador Brainrot</title>
+    <link rel="stylesheet" href="styles.css">
+  </head>
+  <body>
+    <main class="page-shell">
+      <section class="hero">
+        <div class="hero-copy">
+          <p class="eyebrow">Cotizador por codigo</p>
+          <h1>TRADES DISPONIBLES</h1>
+          <p class="intro">Ingresa tu codigo brindado por TunTunTrade y ve todas las ofertas posibles por tu brainrot.</p>
+        </div>
+
+        <form class="search-panel" id="searchForm">
+          <label for="codeInput">Codigo</label>
+          <div class="search-row">
+            <input id="codeInput" name="code" type="text" maxlength="6" autocomplete="off" placeholder="Ingresa tu codigo" aria-describedby="codeHelp">
+            <button type="submit">Buscar</button>
+          </div>
+          <p id="codeHelp">Usa el codigo exacto que recibiste de TunTunTrade.</p>
+          <p class="status" id="statusMessage" role="status">Cargando productos...</p>
+        </form>
+      </section>
+
+      <section class="filters" aria-label="Filtros de productos">
+        <div class="field">
+          <label for="brainrotFilter">Nombre de brainrot</label>
+          <select id="brainrotFilter">
+            <option value="">Todos</option>
+          </select>
+        </div>
+
+        <div class="field">
+          <label for="mutationFilter">Mutacion</label>
+          <select id="mutationFilter">
+            <option value="">Todas</option>
+          </select>
+        </div>
+
+        <button class="secondary-button" id="clearButton" type="button">Limpiar</button>
+      </section>
+
+      <section class="summary-bar" aria-live="polite">
+        <div>
+          <span id="resultCount">0</span>
+          <small>resultados</small>
+        </div>
+        <div>
+          <span id="activeCode">Sin codigo</span>
+          <small>busqueda</small>
+        </div>
+      </section>
+
+      <section class="results-grid" id="resultsGrid" aria-label="Resultados"></section>
+
+      <template id="productTemplate">
+        <article class="product-card">
+          <div class="image-wrap">
+            <img alt="" loading="lazy">
+            <span class="availability"></span>
+          </div>
+          <div class="card-body">
+            <div>
+              <h2></h2>
+              <p class="mutation"></p>
+            </div>
+            <dl>
+              <div>
+                <dt>Dinero por segundo</dt>
+                <dd class="income"></dd>
+              </div>
+            </dl>
+          </div>
+        </article>
+      </template>
+    </main>
+
+    <script src="script.js"></script>
+  </body>
+</html>
