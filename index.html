@@ -8,54 +8,94 @@
   </head>
   <body>
     <main class="page-shell">
-      <section class="hero">
+      <section class="hero view view-entry is-active" id="entryView">
         <div class="hero-copy">
           <p class="eyebrow">Cotizador por codigo</p>
           <h1>TRADES DISPONIBLES</h1>
           <p class="intro">Ingresa tu codigo brindado por TunTunTrade y ve todas las ofertas posibles por tu brainrot.</p>
+          <p class="security-copy">Todos los trades se realizan por m&aacute;quina, para seguridad tuya.</p>
         </div>
 
         <form class="search-panel" id="searchForm">
           <label for="codeInput">Codigo</label>
           <div class="search-row">
             <input id="codeInput" name="code" type="text" maxlength="6" autocomplete="off" placeholder="Ingresa tu codigo" aria-describedby="codeHelp">
-            <button type="submit">Buscar</button>
+            <button type="submit">Obtener ofertas</button>
           </div>
           <p id="codeHelp">Usa el codigo exacto que recibiste de TunTunTrade.</p>
           <p class="status" id="statusMessage" role="status">Cargando productos...</p>
         </form>
       </section>
 
-      <section class="filters" aria-label="Filtros de productos">
-        <div class="field">
-          <label for="brainrotFilter">Nombre de brainrot</label>
-          <select id="brainrotFilter">
-            <option value="">Todos</option>
-          </select>
+      <section class="loading-view view" id="loadingView" aria-live="polite">
+        <div class="loader-stage" aria-hidden="true">
+          <div class="orbit orbit-a">
+            <img src="assets/tralalero.webp" alt="">
+          </div>
+          <div class="orbit orbit-b">
+            <img src="assets/orbit-guard.webp" alt="">
+          </div>
+          <div class="orbit orbit-c">
+            <img src="assets/unclito-samito.webp" alt="">
+          </div>
+          <div class="orbit orbit-d">
+            <img src="assets/burguro-fryuro.webp" alt="">
+          </div>
+          <div class="orbit orbit-e">
+            <img src="assets/capitano-moby.webp" alt="">
+          </div>
+          <div class="orbit orbit-f">
+            <img src="assets/garama.webp" alt="">
+          </div>
+          <img class="loader-hero" src="assets/personajehd.png" alt="">
         </div>
-
-        <div class="field">
-          <label for="mutationFilter">Mutacion</label>
-          <select id="mutationFilter">
-            <option value="">Todas</option>
-          </select>
+        <div class="loading-copy">
+          <p class="loading-line line-one">Cargando ofertas para tu codigo</p>
+          <p class="loading-line line-two">Trades 100% por m&aacute;quina</p>
+          <p class="loading-line line-three">Seguridad y confianza</p>
         </div>
-
-        <button class="secondary-button" id="clearButton" type="button">Limpiar</button>
       </section>
 
-      <section class="summary-bar" aria-live="polite">
-        <div>
-          <span id="resultCount">0</span>
-          <small>resultados</small>
+      <section class="view results-view" id="resultsView">
+        <div class="results-header">
+          <div>
+            <p class="eyebrow">Ofertas encontradas</p>
+            <h2>TRADES DISPONIBLES</h2>
+          </div>
+          <button class="secondary-button" id="newCodeButton" type="button">Poner otro codigo</button>
         </div>
-        <div>
-          <span id="activeCode">Sin codigo</span>
-          <small>busqueda</small>
-        </div>
-      </section>
 
-      <section class="results-grid" id="resultsGrid" aria-label="Resultados"></section>
+        <section class="filters" aria-label="Filtros de productos">
+          <div class="field">
+            <label for="brainrotFilter">Nombre de brainrot</label>
+            <select id="brainrotFilter">
+              <option value="">Todos</option>
+            </select>
+          </div>
+
+          <div class="field">
+            <label for="mutationFilter">Mutacion</label>
+            <select id="mutationFilter">
+              <option value="">Todas</option>
+            </select>
+          </div>
+
+          <button class="secondary-button" id="clearButton" type="button">Limpiar</button>
+        </section>
+
+        <section class="summary-bar" aria-live="polite">
+          <div>
+            <span id="resultCount">0</span>
+            <small>resultados</small>
+          </div>
+          <div>
+            <span id="activeCode">Sin codigo</span>
+            <small>busqueda</small>
+          </div>
+        </section>
+
+        <section class="results-grid" id="resultsGrid" aria-label="Resultados"></section>
+      </section>
 
       <template id="productTemplate">
         <article class="product-card">

@@ -3,20 +3,27 @@ const csvFile = "Cotizador.csv";
 const state = {
   products: [],
   range: null,
+  pendingRange: null,
+  pendingCode: "",
   filters: {
     brainrot: "",
     mutation: "",
   },
   code: "",
+  loadingTimer: null,
 };
 
 const elements = {
+  entryView: document.querySelector("#entryView"),
+  loadingView: document.querySelector("#loadingView"),
+  resultsView: document.querySelector("#resultsView"),
   form: document.querySelector("#searchForm"),
   codeInput: document.querySelector("#codeInput"),
   status: document.querySelector("#statusMessage"),
   brainrotFilter: document.querySelector("#brainrotFilter"),
   mutationFilter: document.querySelector("#mutationFilter"),
   clearButton: document.querySelector("#clearButton"),
+  newCodeButton: document.querySelector("#newCodeButton"),
   resultCount: document.querySelector("#resultCount"),
   activeCode: document.querySelector("#activeCode"),
   grid: document.querySelector("#resultsGrid"),
@@ -34,7 +41,7 @@ async function init() {
     state.products = parseCsv(csvText).map(normalizeProduct).filter((item) => item.name && Number.isFinite(item.filterValue));
 
     updateFilters();
-    setStatus(`${state.products.length} productos cargados. Ingresa un codigo para buscar.`);
+    setStatus("Ingresa tu codigo para obtener ofertas.");
     render();
   } catch (error) {
     setStatus("No se pudo leer Cotizador.csv. Revisa que este en la misma carpeta que index.html.", true);
@@ -51,15 +58,15 @@ elements.form.addEventListener("submit", (event) => {
     state.range = null;
     state.code = "";
     setStatus("Codigo incorrecto. Comunicate con TunTunTrade en TikTok para recibir un codigo correcto.", true);
-    render();
+    showView("entry");
     return;
   }
 
-  state.range = range;
-  state.code = code;
+  state.pendingRange = range;
+  state.pendingCode = code;
   elements.codeInput.value = code;
-  setStatus("Busqueda aplicada.");
-  render();
+  setStatus("Codigo recibido.");
+  showLoadingThenResults();
 });
 
 elements.codeInput.addEventListener("input", () => {
@@ -77,16 +84,55 @@ elements.mutationFilter.addEventListener("change", () => {
 });
 
 elements.clearButton.addEventListener("click", () => {
+  state.filters.brainrot = "";
+  state.filters.mutation = "";
+  elements.brainrotFilter.value = "";
+  elements.mutationFilter.value = "";
+  render();
+});
+
+elements.newCodeButton.addEventListener("click", () => {
+  resetSearch();
+});
+
+function resetSearch() {
   state.range = null;
+  state.pendingRange = null;
   state.code = "";
+  state.pendingCode = "";
   state.filters.brainrot = "";
   state.filters.mutation = "";
   elements.codeInput.value = "";
   elements.brainrotFilter.value = "";
   elements.mutationFilter.value = "";
-  setStatus(`${state.products.length} productos cargados. Ingresa un codigo para buscar.`);
+  setStatus("Ingresa tu codigo para obtener ofertas.");
   render();
-});
+  showView("entry");
+  elements.codeInput.focus();
+}
+
+function showLoadingThenResults() {
+  if (state.loadingTimer) window.clearTimeout(state.loadingTimer);
+
+  showView("loading");
+  state.loadingTimer = window.setTimeout(() => {
+    state.range = state.pendingRange;
+    state.code = state.pendingCode;
+    state.pendingRange = null;
+    state.pendingCode = "";
+    state.filters.brainrot = "";
+    state.filters.mutation = "";
+    setStatus("Busqueda aplicada.");
+    render();
+    showView("results");
+  }, 3000);
+}
+
+function showView(viewName) {
+  elements.entryView.classList.toggle("is-active", viewName === "entry");
+  elements.loadingView.classList.toggle("is-active", viewName === "loading");
+  elements.resultsView.classList.toggle("is-active", viewName === "results");
+}
 
 function getRangeFromCode(code) {
   if (code.length !== 6) return null;

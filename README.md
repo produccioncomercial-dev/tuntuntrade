@@ -8,6 +8,7 @@ Esta carpeta ya esta lista para subirla gratis a GitHub Pages.
 - `styles.css`: diseno visual.
 - `script.js`: lee el CSV, aplica el codigo y los filtros.
 - `Cotizador.csv`: datos de productos.
+- `assets/`: imagenes usadas en la pantalla de carga.
 
 ## Como funciona la busqueda
 
@@ -41,6 +42,7 @@ La pagina valida el codigo recibido por el cliente y muestra las ofertas disponi
    - `script.js`
    - `Cotizador.csv`
    - `README.md`
+   - carpeta `assets`
 7. Presiona `Commit changes`.
 8. Entra a `Settings`.
 9. En el menu izquierdo entra a `Pages`.
