@@ -416,6 +416,76 @@ button:hover {
   font-weight: 800;
 }
 
+.mutation-cursed {
+  color: #ff1f2d;
+  text-shadow: 0 0 10px rgba(255, 31, 45, 0.72);
+  animation: cursedPulse 850ms steps(2, end) infinite;
+}
+
+.mutation-divine {
+  color: #fff7a8;
+  text-shadow: 0 0 8px rgba(255, 255, 255, 0.9), 0 0 18px rgba(237, 197, 0, 0.9);
+  animation: divineGlow 1800ms ease-in-out infinite;
+}
+
+.mutation-rainbow {
+  color: #ff3b3b;
+  animation: rainbowShift 2200ms linear infinite;
+}
+
+.mutation-normal {
+  color: #d8dce5;
+}
+
+.mutation-oro {
+  color: #edc500;
+  text-shadow: 0 0 12px rgba(237, 197, 0, 0.44);
+  animation: goldShift 1500ms ease-in-out infinite;
+}
+
+.mutation-diamante {
+  color: #67d8ff;
+  text-shadow: 0 0 12px rgba(103, 216, 255, 0.72);
+  animation: diamondShift 1600ms ease-in-out infinite;
+}
+
+.mutation-yin-yang {
+  color: #ffffff;
+  text-shadow: 1px 0 0 #050505, -1px 0 0 #050505, 0 0 10px rgba(255, 255, 255, 0.54);
+  animation: yinYangShift 1800ms steps(2, end) infinite;
+}
+
+.mutation-radioactive {
+  color: #b7ff00;
+  text-shadow: 0 0 8px rgba(183, 255, 0, 0.9), 0 0 18px rgba(73, 255, 0, 0.68);
+  animation: radioactivePulse 900ms steps(2, end) infinite;
+}
+
+.mutation-galaxy {
+  color: #d8a8ff;
+  text-shadow: 0 0 8px rgba(216, 168, 255, 0.82), 0 0 18px rgba(72, 110, 255, 0.72);
+  animation: galaxyPulse 1600ms ease-in-out infinite;
+}
+
+.mutation-lava {
+  color: #ff7a00;
+  text-shadow: 0 0 8px rgba(255, 122, 0, 0.88), 0 0 18px rgba(255, 39, 0, 0.7);
+  animation: lavaPulse 820ms steps(2, end) infinite;
+}
+
+.mutation-candy {
+  color: #ff7adf;
+  animation: candyShift 1500ms ease-in-out infinite;
+}
+
+.mutation-bloodrot {
+  color: #8f0014;
+}
+
+.mutation-default {
+  color: var(--accent);
+}
+
 dl {
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
@@ -518,5 +588,148 @@ dd {
   100% {
     opacity: 0.82;
     transform: translateY(0);
+  }
+}
+
+@keyframes cursedPulse {
+  0%,
+  100% {
+    color: #ff1f2d;
+    text-shadow: 0 0 6px rgba(255, 31, 45, 0.62);
+  }
+
+  50% {
+    color: #8f0014;
+    text-shadow: 0 0 16px rgba(255, 31, 45, 0.95);
+  }
+}
+
+@keyframes divineGlow {
+  0%,
+  100% {
+    color: #ffffff;
+    text-shadow: 0 0 7px rgba(255, 255, 255, 0.8), 0 0 16px rgba(237, 197, 0, 0.74);
+  }
+
+  50% {
+    color: #fff2a0;
+    text-shadow: 0 0 12px rgba(255, 255, 255, 1), 0 0 28px rgba(237, 197, 0, 1);
+  }
+}
+
+@keyframes rainbowShift {
+  0% {
+    color: #ff2d55;
+  }
+
+  16% {
+    color: #ff9500;
+  }
+
+  32% {
+    color: #ffeb3b;
+  }
+
+  48% {
+    color: #34c759;
+  }
+
+  64% {
+    color: #00c7ff;
+  }
+
+  80% {
+    color: #5856d6;
+  }
+
+  100% {
+    color: #ff2d55;
+  }
+}
+
+@keyframes goldShift {
+  0%,
+  100% {
+    color: #edc500;
+  }
+
+  50% {
+    color: #ffe973;
+  }
+}
+
+@keyframes diamondShift {
+  0%,
+  100% {
+    color: #44bfff;
+    text-shadow: 0 0 10px rgba(68, 191, 255, 0.66);
+  }
+
+  50% {
+    color: #b7f4ff;
+    text-shadow: 0 0 20px rgba(183, 244, 255, 0.92);
+  }
+}
+
+@keyframes yinYangShift {
+  0%,
+  100% {
+    color: #ffffff;
+    text-shadow: 1px 0 0 #050505, -1px 0 0 #050505, 0 0 12px rgba(255, 255, 255, 0.65);
+  }
+
+  50% {
+    color: #101010;
+    text-shadow: 1px 0 0 #ffffff, -1px 0 0 #ffffff, 0 0 12px rgba(255, 255, 255, 0.5);
+  }
+}
+
+@keyframes radioactivePulse {
+  0%,
+  100% {
+    color: #b7ff00;
+    text-shadow: 0 0 7px rgba(183, 255, 0, 0.78), 0 0 17px rgba(73, 255, 0, 0.64);
+  }
+
+  50% {
+    color: #57ff00;
+    text-shadow: 0 0 13px rgba(183, 255, 0, 1), 0 0 26px rgba(73, 255, 0, 0.92);
+  }
+}
+
+@keyframes galaxyPulse {
+  0%,
+  100% {
+    color: #d8a8ff;
+    text-shadow: 0 0 8px rgba(216, 168, 255, 0.78), 0 0 18px rgba(72, 110, 255, 0.68);
+  }
+
+  50% {
+    color: #7dd3ff;
+    text-shadow: 0 0 12px rgba(125, 211, 255, 0.95), 0 0 26px rgba(189, 67, 255, 0.9);
+  }
+}
+
+@keyframes lavaPulse {
+  0%,
+  100% {
+    color: #ff7a00;
+    text-shadow: 0 0 8px rgba(255, 122, 0, 0.82), 0 0 18px rgba(255, 39, 0, 0.62);
+  }
+
+  50% {
+    color: #ff2d00;
+    text-shadow: 0 0 13px rgba(255, 122, 0, 1), 0 0 28px rgba(255, 39, 0, 0.95);
+  }
+}
+
+@keyframes candyShift {
+  0%,
+  100% {
+    color: #ff7adf;
+  }
+
+  50% {
+    color: #ffb3ea;
   }
 }

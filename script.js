@@ -183,7 +183,9 @@ function render() {
     });
     card.querySelector(".availability").textContent = product.availability || "Sin estado";
     card.querySelector("h2").textContent = product.name;
-    card.querySelector(".mutation").textContent = product.mutation || "Sin mutacion";
+    const mutation = card.querySelector(".mutation");
+    mutation.textContent = product.mutation || "Sin mutacion";
+    mutation.classList.add(getMutationClass(product.mutation));
     card.querySelector(".income").textContent = product.income || "-";
     fragment.append(card);
   });
@@ -253,6 +255,26 @@ function fillSelect(select, values, defaultLabel) {
 
 function uniqueValues(values) {
   return [...new Set(values)].sort((a, b) => a.localeCompare(b, "es"));
+}
+
+function getMutationClass(mutation) {
+  const normalizedMutation = normalizeHeader(mutation).replace(/\s+/g, "-");
+  const supportedMutations = new Set([
+    "cursed",
+    "divine",
+    "rainbow",
+    "normal",
+    "oro",
+    "diamante",
+    "yin-yang",
+    "radioactive",
+    "galaxy",
+    "lava",
+    "candy",
+    "bloodrot",
+  ]);
+
+  return supportedMutations.has(normalizedMutation) ? `mutation-${normalizedMutation}` : "mutation-default";
 }
 
 function normalizeProduct(row) {
