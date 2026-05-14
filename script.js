@@ -1,5 +1,17 @@
 const csvFile = "Cotizador.csv";
-const codeValueMap = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
+const codeDigitMap = {
+  A: "0",
+  B: "1",
+  C: "2",
+  D: "3",
+  E: "4",
+  F: "5",
+  G: "6",
+  H: "7",
+  I: "8",
+  J: "9",
+  O: ".",
+};
 
 const state = {
   products: [],
@@ -136,11 +148,11 @@ function showView(viewName) {
 }
 
 function getRangeFromCode(code) {
-  if (code.length !== 6) return null;
+  if (code.length !== 8) return null;
 
-  const firstValue = getCodeValue(code[1]);
-  const secondValue = getCodeValue(code[3]);
-  if (!Number.isInteger(firstValue) || !Number.isInteger(secondValue)) return null;
+  const firstValue = decodeCodeNumber(code.slice(1, 4));
+  const secondValue = decodeCodeNumber(code.slice(4, 7));
+  if (!Number.isFinite(firstValue) || !Number.isFinite(secondValue)) return null;
 
   return {
     min: Math.min(firstValue, secondValue),
@@ -148,9 +160,16 @@ function getRangeFromCode(code) {
   };
 }
 
-function getCodeValue(character) {
-  const index = codeValueMap.indexOf(character);
-  return index === -1 ? null : index + 1;
+function decodeCodeNumber(chunk) {
+  let decoded = "";
+
+  for (const character of chunk) {
+    if (!Object.prototype.hasOwnProperty.call(codeDigitMap, character)) return null;
+    decoded += codeDigitMap[character];
+  }
+
+  if (!/^\d+(\.\d+)?$/.test(decoded)) return null;
+  return Number(decoded);
 }
 
 function render() {
