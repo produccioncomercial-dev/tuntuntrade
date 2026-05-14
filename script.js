@@ -1,4 +1,5 @@
 const csvFile = "Cotizador.csv";
+const codeValueMap = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
 
 const state = {
   products: [],
@@ -137,14 +138,19 @@ function showView(viewName) {
 function getRangeFromCode(code) {
   if (code.length !== 6) return null;
 
-  const secondDigit = Number(code[1]);
-  const fourthDigit = Number(code[3]);
-  if (!Number.isInteger(secondDigit) || !Number.isInteger(fourthDigit)) return null;
+  const firstValue = getCodeValue(code[1]);
+  const secondValue = getCodeValue(code[3]);
+  if (!Number.isInteger(firstValue) || !Number.isInteger(secondValue)) return null;
 
   return {
-    min: Math.min(secondDigit, fourthDigit),
-    max: Math.max(secondDigit, fourthDigit),
+    min: Math.min(firstValue, secondValue),
+    max: Math.max(firstValue, secondValue),
   };
+}
+
+function getCodeValue(character) {
+  const index = codeValueMap.indexOf(character);
+  return index === -1 ? null : index + 1;
 }
 
 function render() {
