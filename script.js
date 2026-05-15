@@ -197,7 +197,7 @@ function decodeCodeNumber(chunk) {
     decoded += codeDigitMap[character];
   }
 
-  if (!/^\d+(\.\d+)?$/.test(decoded)) return null;
+  if (!/^\d+(\.\d*)?$/.test(decoded)) return null;
   return Number(decoded);
 }
 
