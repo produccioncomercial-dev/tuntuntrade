@@ -23,6 +23,8 @@ const state = {
     mutation: "",
   },
   code: "",
+  customerName: "Anonimo",
+  pendingCustomerName: "Anonimo",
   loadingTimer: null,
 };
 
@@ -39,6 +41,8 @@ const elements = {
   newCodeButton: document.querySelector("#newCodeButton"),
   resultCount: document.querySelector("#resultCount"),
   activeCode: document.querySelector("#activeCode"),
+  welcomeTitle: document.querySelector("#welcomeTitle"),
+  welcomeMessage: document.querySelector("#welcomeMessage"),
   grid: document.querySelector("#resultsGrid"),
   template: document.querySelector("#productTemplate"),
 };
@@ -57,16 +61,17 @@ async function init() {
     setStatus("Ingresa tu codigo para obtener ofertas.");
     render();
 
-    const routeCode = getCodeFromUrl();
-    const routeRange = routeCode ? getRangeFromCode(routeCode) : null;
+    const routeData = getRouteData();
+    const routeRange = routeData.code ? getRangeFromCode(routeData.code) : null;
 
-    if (routeCode && routeRange) {
+    if (routeData.code && routeRange) {
       state.pendingRange = routeRange;
-      state.pendingCode = routeCode;
-      elements.codeInput.value = routeCode;
+      state.pendingCode = routeData.code;
+      state.pendingCustomerName = routeData.customerName;
+      elements.codeInput.value = routeData.code;
       setStatus("Codigo recibido.");
       showLoadingThenResults();
-    } else if (routeCode) {
+    } else if (routeData.code) {
       setStatus("Codigo incorrecto. Comunicate con TunTunTrade en TikTok para recibir un codigo correcto.", true);
     }
   } catch (error) {
@@ -90,6 +95,7 @@ elements.form.addEventListener("submit", (event) => {
 
   state.pendingRange = range;
   state.pendingCode = code;
+  state.pendingCustomerName = "Anonimo";
   elements.codeInput.value = code;
   setStatus("Codigo recibido.");
   showLoadingThenResults();
@@ -126,6 +132,8 @@ function resetSearch() {
   state.pendingRange = null;
   state.code = "";
   state.pendingCode = "";
+  state.customerName = "Anonimo";
+  state.pendingCustomerName = "Anonimo";
   state.filters.brainrot = "";
   state.filters.mutation = "";
   elements.codeInput.value = "";
@@ -145,8 +153,10 @@ function showLoadingThenResults() {
   state.loadingTimer = window.setTimeout(() => {
     state.range = state.pendingRange;
     state.code = state.pendingCode;
+    state.customerName = state.pendingCustomerName || "Anonimo";
     state.pendingRange = null;
     state.pendingCode = "";
+    state.pendingCustomerName = "Anonimo";
     state.filters.brainrot = "";
     state.filters.mutation = "";
     setStatus("Busqueda aplicada.");
@@ -161,12 +171,19 @@ function showView(viewName) {
   elements.resultsView.classList.toggle("is-active", viewName === "results");
 }
 
-function getCodeFromUrl() {
+function getRouteData() {
   const segments = window.location.pathname.split("/").filter(Boolean);
   const lastSegment = segments.at(-1) || "";
 
-  if (lastSegment.includes(".") || lastSegment.toLowerCase() === "tuntuntrade") return "";
-  return decodeURIComponent(lastSegment).trim().toUpperCase();
+  if (lastSegment.includes(".") || lastSegment.toLowerCase() === "tuntuntrade") {
+    return { code: "", customerName: "Anonimo" };
+  }
+
+  const decodedSegment = decodeURIComponent(lastSegment).trim();
+  const code = decodedSegment.slice(0, 8).toUpperCase();
+  const customerName = sanitizeCustomerName(decodedSegment.slice(8));
+
+  return { code, customerName };
 }
 
 function clearCodeFromUrl() {
@@ -206,6 +223,7 @@ function render() {
   const filtered = getFilteredProducts();
   elements.resultCount.textContent = filtered.length;
   elements.activeCode.textContent = state.code || "Sin codigo";
+  updatePersonalHeader();
   elements.grid.textContent = "";
 
   if (!state.range) {
@@ -239,6 +257,13 @@ function render() {
   });
 
   elements.grid.append(fragment);
+}
+
+function updatePersonalHeader() {
+  const customerName = state.customerName || "Anonimo";
+  const code = state.code || "";
+  elements.welcomeTitle.textContent = `Bienvenido ${customerName}, este es tu catalogo unico ${code}.`;
+  elements.welcomeMessage.textContent = "Elige el brainrot que mas te gusta y mandame tu user como mensaje en TikTok para que podamos hacer el trade por maquina.";
 }
 
 function getFilteredProducts() {
@@ -323,6 +348,21 @@ function getMutationClass(mutation) {
   ]);
 
   return supportedMutations.has(normalizedMutation) ? `mutation-${normalizedMutation}` : "mutation-default";
+}
+
+function sanitizeCustomerName(name) {
+  const cleanName = name
+    .replace(/[-_]+/g, " ")
+    .replace(/[^a-zA-Z0-9áéíóúÁÉÍÓÚñÑ ]/g, "")
+    .replace(/\s+/g, " ")
+    .trim();
+
+  if (!cleanName) return "Anonimo";
+
+  return cleanName
+    .split(" ")
+    .map((part) => part.charAt(0).toUpperCase() + part.slice(1))
+    .join(" ");
 }
 
 function normalizeProduct(row) {

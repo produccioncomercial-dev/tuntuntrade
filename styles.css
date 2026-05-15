@@ -27,6 +27,23 @@ body {
   color: var(--text);
 }
 
+.roblox-badge {
+  position: fixed;
+  z-index: 30;
+  right: 14px;
+  bottom: 14px;
+  max-width: calc(100vw - 28px);
+  padding: 9px 12px;
+  border: 1px solid rgba(237, 197, 0, 0.46);
+  border-radius: 999px;
+  background: rgba(1, 20, 73, 0.82);
+  box-shadow: 0 14px 34px rgba(0, 20, 80, 0.34);
+  color: #fff6b8;
+  font-size: 0.8rem;
+  font-weight: 800;
+  backdrop-filter: blur(10px);
+}
+
 button,
 input,
 select {
@@ -196,19 +213,67 @@ button:hover {
   border-radius: 8px;
 }
 
-.results-header {
-  display: flex;
-  justify-content: space-between;
-  gap: 18px;
+.personal-header {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(220px, 30%);
+  gap: 24px;
   align-items: center;
+  margin-bottom: 22px;
+  overflow: hidden;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 8px;
+  background: rgba(3, 33, 116, 0.78);
+  box-shadow: var(--shadow);
+  backdrop-filter: blur(14px);
+}
+
+.personal-copy {
+  padding: 26px;
+}
+
+.personal-header h2 {
+  margin: 0;
+  font-size: clamp(1.65rem, 4vw, 3.6rem);
+  line-height: 1;
+  letter-spacing: 0;
+}
+
+.personal-header p {
+  max-width: 760px;
+}
+
+.personal-header .personal-copy > p:not(.eyebrow) {
+  margin: 16px 0 0;
+  color: var(--muted);
+  font-size: 1rem;
+  line-height: 1.55;
+}
+
+.catalog-note {
+  padding-top: 12px;
+  border-top: 1px solid rgba(255, 255, 255, 0.14);
+  font-size: 0.9rem !important;
+}
+
+.personal-image {
+  width: 100%;
+  height: auto;
+  max-height: 360px;
+  align-self: end;
+  display: block;
+  object-fit: contain;
+  object-position: right center;
+  padding: 16px 16px 0 0;
+}
+
+.results-actions {
+  display: flex;
+  justify-content: flex-end;
   margin-bottom: 22px;
 }
 
-.results-header h2 {
-  margin: 0;
-  font-size: clamp(2rem, 5vw, 4rem);
-  line-height: 0.95;
-  letter-spacing: 0;
+.results-actions .secondary-button {
+  min-width: min(100%, 260px);
 }
 
 .loading-view.is-active {
@@ -542,7 +607,20 @@ dd {
     grid-template-columns: 1fr;
   }
 
-  .results-header {
+  .personal-header {
+    grid-template-columns: 1fr;
+  }
+
+  .personal-copy {
+    padding: 20px;
+  }
+
+  .personal-image {
+    min-height: 240px;
+    max-height: 340px;
+  }
+
+  .results-actions {
     align-items: stretch;
     flex-direction: column;
   }

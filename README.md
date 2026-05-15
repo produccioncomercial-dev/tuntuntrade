@@ -82,6 +82,14 @@ https://produccioncomercial-dev.github.io/tuntuntrade/PEOAFOB1
 
 Cuando una persona abra ese link, la pagina saltara directo a la animacion de carga y luego mostrara las ofertas filtradas.
 
+Tambien puedes agregar un nombre despues del codigo:
+
+```text
+https://produccioncomercial-dev.github.io/tuntuntrade/PEOAFOB1Fernando
+```
+
+La pagina usara `Fernando` en el encabezado del catalogo. Si no agregas nombre, usara `Anonimo`.
+
 ## Como actualizar datos en GitHub despues
 
 1. Entra al repositorio en GitHub.
