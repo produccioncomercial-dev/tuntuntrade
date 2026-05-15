@@ -233,9 +233,27 @@ button:hover {
 
 .personal-header h2 {
   margin: 0;
-  font-size: clamp(1.65rem, 4vw, 3.6rem);
-  line-height: 1;
+  font-size: clamp(1.45rem, 3.2vw, 2.9rem);
+  line-height: 1.05;
   letter-spacing: 0;
+}
+
+.customer-name {
+  color: var(--accent);
+  text-shadow: 0 0 14px rgba(237, 197, 0, 0.45);
+}
+
+.catalog-code {
+  display: inline-flex;
+  width: fit-content;
+  padding: 8px 10px;
+  border: 1px solid rgba(237, 197, 0, 0.28);
+  border-radius: 8px;
+  background: rgba(237, 197, 0, 0.12);
+  color: #fff2a8 !important;
+  font-size: 0.86rem !important;
+  font-weight: 850;
+  text-transform: uppercase;
 }
 
 .personal-header p {
@@ -616,8 +634,12 @@ dd {
   }
 
   .personal-image {
-    min-height: 240px;
-    max-height: 340px;
+    width: min(100%, 360px);
+    min-height: 0;
+    max-height: 320px;
+    justify-self: center;
+    object-position: center;
+    padding: 0 12px 14px;
   }
 
   .results-actions {
