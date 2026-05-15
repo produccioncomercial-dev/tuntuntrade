@@ -42,6 +42,7 @@ const elements = {
   resultCount: document.querySelector("#resultCount"),
   activeCode: document.querySelector("#activeCode"),
   welcomeTitle: document.querySelector("#welcomeTitle"),
+  catalogCode: document.querySelector("#catalogCode"),
   welcomeMessage: document.querySelector("#welcomeMessage"),
   grid: document.querySelector("#resultsGrid"),
   template: document.querySelector("#productTemplate"),
@@ -262,8 +263,9 @@ function render() {
 function updatePersonalHeader() {
   const customerName = state.customerName || "Anonimo";
   const code = state.code || "";
-  elements.welcomeTitle.textContent = `Bienvenido ${customerName}, este es tu catalogo unico ${code}.`;
-  elements.welcomeMessage.textContent = "Elige el brainrot que mas te gusta y mandame tu user como mensaje en TikTok para que podamos hacer el trade por maquina.";
+  elements.welcomeTitle.innerHTML = `Bienvenido, <span class="customer-name">${customerName}</span>`;
+  elements.catalogCode.innerHTML = code ? `Cat&aacute;logo &uacute;nico ${code}` : "Cat&aacute;logo &uacute;nico";
+  elements.welcomeMessage.innerHTML = "Elige el brainrot que m&aacute;s te gusta y env&iacute;ame tu usuario por TikTok para coordinar el trade por m&aacute;quina.";
 }
 
 function getFilteredProducts() {
