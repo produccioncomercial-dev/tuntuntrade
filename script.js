@@ -56,6 +56,19 @@ async function init() {
     updateFilters();
     setStatus("Ingresa tu codigo para obtener ofertas.");
     render();
+
+    const routeCode = getCodeFromUrl();
+    const routeRange = routeCode ? getRangeFromCode(routeCode) : null;
+
+    if (routeCode && routeRange) {
+      state.pendingRange = routeRange;
+      state.pendingCode = routeCode;
+      elements.codeInput.value = routeCode;
+      setStatus("Codigo recibido.");
+      showLoadingThenResults();
+    } else if (routeCode) {
+      setStatus("Codigo incorrecto. Comunicate con TunTunTrade en TikTok para recibir un codigo correcto.", true);
+    }
   } catch (error) {
     setStatus("No se pudo leer Cotizador.csv. Revisa que este en la misma carpeta que index.html.", true);
     console.error(error);
@@ -121,6 +134,7 @@ function resetSearch() {
   setStatus("Ingresa tu codigo para obtener ofertas.");
   render();
   showView("entry");
+  clearCodeFromUrl();
   elements.codeInput.focus();
 }
 
@@ -145,6 +159,21 @@ function showView(viewName) {
   elements.entryView.classList.toggle("is-active", viewName === "entry");
   elements.loadingView.classList.toggle("is-active", viewName === "loading");
   elements.resultsView.classList.toggle("is-active", viewName === "results");
+}
+
+function getCodeFromUrl() {
+  const segments = window.location.pathname.split("/").filter(Boolean);
+  const lastSegment = segments.at(-1) || "";
+
+  if (lastSegment.includes(".") || lastSegment.toLowerCase() === "tuntuntrade") return "";
+  return decodeURIComponent(lastSegment).trim().toUpperCase();
+}
+
+function clearCodeFromUrl() {
+  if (!window.history || !window.history.replaceState) return;
+
+  const homePath = window.location.hostname.endsWith("github.io") ? "/tuntuntrade/" : "/";
+  window.history.replaceState({}, "", homePath);
 }
 
 function getRangeFromCode(code) {

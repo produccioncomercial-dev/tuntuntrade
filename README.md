@@ -5,6 +5,7 @@ Esta carpeta ya esta lista para subirla gratis a GitHub Pages.
 ## Archivos
 
 - `index.html`: estructura de la pagina.
+- `404.html`: permite abrir links directos con codigo en GitHub Pages.
 - `styles.css`: diseno visual.
 - `script.js`: lee el CSV, aplica el codigo y los filtros.
 - `Cotizador.csv`: datos de productos.
@@ -58,6 +59,7 @@ Ejemplo interno: `3AOBBOA6` representa `0.1` a `1.0`.
 5. Dentro del repositorio, presiona `Add file` y luego `Upload files`.
 6. Arrastra estos archivos:
    - `index.html`
+   - `404.html`
    - `styles.css`
    - `script.js`
    - `Cotizador.csv`
@@ -69,6 +71,16 @@ Ejemplo interno: `3AOBBOA6` representa `0.1` a `1.0`.
 10. En `Branch`, elige `main` y carpeta `/root`.
 11. Presiona `Save`.
 12. Espera 1 o 2 minutos. GitHub te mostrara el link publico de tu pagina.
+
+## Links directos con codigo
+
+Puedes compartir links asi:
+
+```text
+https://produccioncomercial-dev.github.io/tuntuntrade/PEOAFOB1
+```
+
+Cuando una persona abra ese link, la pagina saltara directo a la animacion de carga y luego mostrara las ofertas filtradas.
 
 ## Como actualizar datos en GitHub despues
 
